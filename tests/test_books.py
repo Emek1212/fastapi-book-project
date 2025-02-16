@@ -1,9 +1,13 @@
-from tests import client
+from fastapi.testclient import TestClient
+from main import app  
+
+client = TestClient(app)  
 
 
 def test_get_all_books():
     response = client.get("/books/")
     assert response.status_code == 200
+    assert isinstance(response.json(), dict)  
     assert len(response.json()) == 3
 
 
@@ -46,7 +50,8 @@ def test_update_book():
 
 def test_delete_book():
     response = client.delete("/books/3")
-    assert response.status_code == 204
+    assert response.status_code == 204  
 
+    
     response = client.get("/books/3")
-    assert response.status_code == 404
+    assert response.status_code == 404  
