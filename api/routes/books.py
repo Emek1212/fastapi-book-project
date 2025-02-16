@@ -6,6 +6,7 @@ from api.db.schemas import Book, Genre, InMemoryDB
 
 router = APIRouter()
 
+# Mock database
 db = InMemoryDB()
 db.books = {
     1: Book(
