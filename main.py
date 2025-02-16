@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.router import api_router
-
-from core.config import settings
+from api.router import api_router  # Assuming this is where your `books` routes are included
 
 app = FastAPI()
 
+# Add middleware for CORS if necessary
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,8 +13,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(api_router, prefix=settings.API_PREFIX)
-
+# Include the router with the '/api/v1' prefix
+app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/healthcheck")
 async def health_check():
